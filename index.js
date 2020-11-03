@@ -94,7 +94,7 @@ module.exports = function newmanCSVReporter (newman, options) {
 
 function getResults () {
   const results = logs.map((log) => {
-    const row = []
+    const row = [columns.length]
 
     Object.keys(log).forEach((key) => {
       const val = log[key]
