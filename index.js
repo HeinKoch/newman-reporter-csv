@@ -33,6 +33,7 @@ const CSV = {
 module.exports = function newmanCSVReporter (newman, options) {
   if (options.includeBody) {
     columns.push('body')
+    columns.push('requestBody')
   }
 
   newman.on('beforeItem', (err, e) => {
@@ -52,6 +53,10 @@ module.exports = function newmanCSVReporter (newman, options) {
       method: request.method,
       url: request.url.toString()
     })
+
+    if (options.includeBody) {
+      Object.assign(log, { requestBody: request.body == null ? '' : request.body.toString().replace(/(\n)/g, '') })
+    }
   })
 
   newman.on('request', (err, e) => {
